@@ -1,0 +1,112 @@
+{
+    "actions": [],
+    "autoname": "format:{repair_order}-LOG-{#####}",
+    "creation": "2026-01-27 22:30:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "repair_order",
+        "log_date",
+        "column_break_1",
+        "status",
+        "updated_by",
+        "section_break_2",
+        "notes",
+        "section_break_3",
+        "notify_customer",
+        "is_public"
+    ],
+    "fields": [
+        {
+            "fieldname": "repair_order",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Repair Order",
+            "options": "Repair Order",
+            "reqd": 1
+        },
+        {
+            "default": "Now",
+            "fieldname": "log_date",
+            "fieldtype": "Datetime",
+            "in_list_view": 1,
+            "label": "Log Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Status",
+            "options": "Repair Status"
+        },
+        {
+            "default": "user",
+            "fieldname": "updated_by",
+            "fieldtype": "Link",
+            "label": "Updated By",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_2",
+            "fieldtype": "Section Break"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Text Editor",
+            "in_list_view": 1,
+            "label": "Notes",
+            "reqd": 1
+        },
+        {
+            "fieldname": "section_break_3",
+            "fieldtype": "Section Break"
+        },
+        {
+            "default": "0",
+            "description": "Send notification to customer about this update",
+            "fieldname": "notify_customer",
+            "fieldtype": "Check",
+            "label": "Notify Customer"
+        },
+        {
+            "default": "1",
+            "description": "Visible to customer in public tracking",
+            "fieldname": "is_public",
+            "fieldtype": "Check",
+            "label": "Is Public"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-01-27 22:30:00.000000",
+    "modified_by": "Administrator",
+    "module": "RepairBox",
+    "name": "Repair Log",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "log_date",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

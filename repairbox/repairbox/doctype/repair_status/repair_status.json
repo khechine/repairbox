@@ -1,0 +1,94 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:status_name",
+    "creation": "2026-01-27 22:30:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "status_name",
+        "color",
+        "column_break_1",
+        "is_default",
+        "notify_customer",
+        "sort_order",
+        "section_break_2",
+        "description"
+    ],
+    "fields": [
+        {
+            "fieldname": "status_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Status Name",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "fieldname": "color",
+            "fieldtype": "Color",
+            "label": "Color"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "description": "Set as default status for new repair orders",
+            "fieldname": "is_default",
+            "fieldtype": "Check",
+            "label": "Is Default"
+        },
+        {
+            "default": "1",
+            "description": "Send notification to customer when status changes to this",
+            "fieldname": "notify_customer",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Notify Customer"
+        },
+        {
+            "description": "Display order (lower numbers appear first)",
+            "fieldname": "sort_order",
+            "fieldtype": "Int",
+            "label": "Sort Order"
+        },
+        {
+            "fieldname": "section_break_2",
+            "fieldtype": "Section Break"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Text Editor",
+            "label": "Description"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-01-27 22:30:00.000000",
+    "modified_by": "Administrator",
+    "module": "RepairBox",
+    "name": "Repair Status",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "sort_order",
+    "sort_order": "ASC",
+    "states": [],
+    "track_changes": 1
+}

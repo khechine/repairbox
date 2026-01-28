@@ -1,0 +1,114 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "format:{device}-{defect_title}",
+    "creation": "2026-01-27 22:30:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "device",
+        "brand",
+        "defect_title",
+        "column_break_1",
+        "estimated_time",
+        "cost_amount",
+        "selling_price",
+        "is_active",
+        "section_break_2",
+        "description"
+    ],
+    "fields": [
+        {
+            "fieldname": "device",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Device",
+            "options": "Device",
+            "reqd": 1
+        },
+        {
+            "fetch_from": "device.brand",
+            "fieldname": "brand",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Brand",
+            "options": "Brand",
+            "read_only": 1
+        },
+        {
+            "fieldname": "defect_title",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Defect/Service Title",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "description": "Time in minutes",
+            "fieldname": "estimated_time",
+            "fieldtype": "Int",
+            "label": "Estimated Time"
+        },
+        {
+            "description": "Cost of parts/materials",
+            "fieldname": "cost_amount",
+            "fieldtype": "Currency",
+            "label": "Cost Amount"
+        },
+        {
+            "fieldname": "selling_price",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "Selling Price",
+            "reqd": 1
+        },
+        {
+            "default": "1",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "label": "Is Active"
+        },
+        {
+            "fieldname": "section_break_2",
+            "fieldtype": "Section Break"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Text Editor",
+            "label": "Description"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-01-27 22:30:00.000000",
+    "modified_by": "Administrator",
+    "module": "RepairBox",
+    "name": "Defect",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1,
+    "title_field": "defect_title"
+}

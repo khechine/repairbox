@@ -1,0 +1,326 @@
+[
+    {
+        "doctype": "Inspection Checklist Template",
+        "template_name": "Smartphone Standard Inspection",
+        "device_type": "Smartphone",
+        "is_active": 1,
+        "is_default": 1,
+        "description": "Standard inspection checklist for smartphones",
+        "checklist_items": [
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Screen displays properly (no dead pixels, lines, or discoloration)",
+                "category": "Display",
+                "is_mandatory": 1,
+                "sort_order": 1
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Touch screen responds accurately across all areas",
+                "category": "Display",
+                "is_mandatory": 1,
+                "sort_order": 2
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Screen brightness adjusts properly",
+                "category": "Display",
+                "is_mandatory": 0,
+                "sort_order": 3
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "No cracks or scratches on screen",
+                "category": "Physical Condition",
+                "is_mandatory": 1,
+                "sort_order": 4
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Earpiece speaker works",
+                "category": "Audio",
+                "is_mandatory": 1,
+                "sort_order": 5
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Loudspeaker works",
+                "category": "Audio",
+                "is_mandatory": 1,
+                "sort_order": 6
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Microphone records clearly",
+                "category": "Audio",
+                "is_mandatory": 1,
+                "sort_order": 7
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "WiFi connects and functions",
+                "category": "Connectivity",
+                "is_mandatory": 1,
+                "sort_order": 8
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Bluetooth pairs and connects",
+                "category": "Connectivity",
+                "is_mandatory": 0,
+                "sort_order": 9
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Cellular signal reception",
+                "category": "Connectivity",
+                "is_mandatory": 1,
+                "sort_order": 10
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Battery charges properly",
+                "category": "Battery",
+                "is_mandatory": 1,
+                "sort_order": 11
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Battery holds charge",
+                "category": "Battery",
+                "is_mandatory": 1,
+                "sort_order": 12
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Front camera captures images",
+                "category": "Camera",
+                "is_mandatory": 0,
+                "sort_order": 13
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Rear camera captures images",
+                "category": "Camera",
+                "is_mandatory": 0,
+                "sort_order": 14
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Camera flash works",
+                "category": "Camera",
+                "is_mandatory": 0,
+                "sort_order": 15
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Power button functions",
+                "category": "Buttons & Ports",
+                "is_mandatory": 1,
+                "sort_order": 16
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Volume buttons function",
+                "category": "Buttons & Ports",
+                "is_mandatory": 1,
+                "sort_order": 17
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Charging port works",
+                "category": "Buttons & Ports",
+                "is_mandatory": 1,
+                "sort_order": 18
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "No physical damage to body",
+                "category": "Physical Condition",
+                "is_mandatory": 1,
+                "sort_order": 19
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "No water damage indicators triggered",
+                "category": "Physical Condition",
+                "is_mandatory": 1,
+                "sort_order": 20
+            }
+        ]
+    },
+    {
+        "doctype": "Inspection Checklist Template",
+        "template_name": "Laptop Standard Inspection",
+        "device_type": "Laptop",
+        "is_active": 1,
+        "is_default": 1,
+        "description": "Standard inspection checklist for laptops",
+        "checklist_items": [
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Screen displays properly",
+                "category": "Display",
+                "is_mandatory": 1,
+                "sort_order": 1
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "No dead pixels or backlight issues",
+                "category": "Display",
+                "is_mandatory": 1,
+                "sort_order": 2
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Hinges open/close smoothly",
+                "category": "Physical Condition",
+                "is_mandatory": 1,
+                "sort_order": 3
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "All keys function properly",
+                "category": "Buttons & Ports",
+                "is_mandatory": 1,
+                "sort_order": 4
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Trackpad responds accurately",
+                "category": "Buttons & Ports",
+                "is_mandatory": 1,
+                "sort_order": 5
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "USB ports work",
+                "category": "Buttons & Ports",
+                "is_mandatory": 1,
+                "sort_order": 6
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "WiFi connects",
+                "category": "Connectivity",
+                "is_mandatory": 1,
+                "sort_order": 7
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Battery charges",
+                "category": "Battery",
+                "is_mandatory": 1,
+                "sort_order": 8
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Battery holds charge",
+                "category": "Battery",
+                "is_mandatory": 1,
+                "sort_order": 9
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "System boots properly",
+                "category": "Performance",
+                "is_mandatory": 1,
+                "sort_order": 10
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "No unusual noises (fan, hard drive)",
+                "category": "Performance",
+                "is_mandatory": 1,
+                "sort_order": 11
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "No physical damage to body",
+                "category": "Physical Condition",
+                "is_mandatory": 1,
+                "sort_order": 12
+            }
+        ]
+    },
+    {
+        "doctype": "Inspection Checklist Template",
+        "template_name": "Tablet Standard Inspection",
+        "device_type": "Tablet",
+        "is_active": 1,
+        "is_default": 1,
+        "description": "Standard inspection checklist for tablets",
+        "checklist_items": [
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Screen displays properly",
+                "category": "Display",
+                "is_mandatory": 1,
+                "sort_order": 1
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Touch screen responsive",
+                "category": "Display",
+                "is_mandatory": 1,
+                "sort_order": 2
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "No cracks or scratches",
+                "category": "Physical Condition",
+                "is_mandatory": 1,
+                "sort_order": 3
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Speakers work",
+                "category": "Audio",
+                "is_mandatory": 1,
+                "sort_order": 4
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "WiFi works",
+                "category": "Connectivity",
+                "is_mandatory": 1,
+                "sort_order": 5
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Battery charges properly",
+                "category": "Battery",
+                "is_mandatory": 1,
+                "sort_order": 6
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Battery holds charge",
+                "category": "Battery",
+                "is_mandatory": 1,
+                "sort_order": 7
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Power button works",
+                "category": "Buttons & Ports",
+                "is_mandatory": 1,
+                "sort_order": 8
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "Volume buttons work",
+                "category": "Buttons & Ports",
+                "is_mandatory": 1,
+                "sort_order": 9
+            },
+            {
+                "doctype": "Inspection Checklist Item",
+                "item_name": "No physical damage",
+                "category": "Physical Condition",
+                "is_mandatory": 1,
+                "sort_order": 10
+            }
+        ]
+    }
+]

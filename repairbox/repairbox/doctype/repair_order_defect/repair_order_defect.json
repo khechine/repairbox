@@ -1,0 +1,73 @@
+{
+    "actions": [],
+    "creation": "2026-01-27 22:30:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "defect",
+        "defect_title",
+        "column_break_1",
+        "estimated_time",
+        "cost_amount",
+        "selling_price"
+    ],
+    "fields": [
+        {
+            "fieldname": "defect",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Defect",
+            "options": "Defect",
+            "reqd": 1
+        },
+        {
+            "fetch_from": "defect.defect_title",
+            "fieldname": "defect_title",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Defect Title",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fetch_from": "defect.estimated_time",
+            "fieldname": "estimated_time",
+            "fieldtype": "Int",
+            "in_list_view": 1,
+            "label": "Estimated Time (mins)",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "defect.cost_amount",
+            "fieldname": "cost_amount",
+            "fieldtype": "Currency",
+            "label": "Cost Amount",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "defect.selling_price",
+            "fieldname": "selling_price",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "Selling Price",
+            "read_only": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "istable": 1,
+    "links": [],
+    "modified": "2026-01-27 22:30:00.000000",
+    "modified_by": "Administrator",
+    "module": "RepairBox",
+    "name": "Repair Order Defect",
+    "owner": "Administrator",
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

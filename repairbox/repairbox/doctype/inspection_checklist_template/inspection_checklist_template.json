@@ -1,0 +1,104 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:template_name",
+    "creation": "2026-01-27 22:40:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "template_name",
+        "device_type",
+        "column_break_1",
+        "is_active",
+        "is_default",
+        "section_break_2",
+        "description",
+        "section_break_3",
+        "checklist_items"
+    ],
+    "fields": [
+        {
+            "fieldname": "template_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Template Name",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "description": "Type of device this checklist applies to (e.g., Smartphone, Laptop, Tablet)",
+            "fieldname": "device_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Device Type",
+            "options": "Smartphone\nTablet\nLaptop\nDesktop\nSmartwatch\nGaming Console\nOther"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "1",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Is Active"
+        },
+        {
+            "default": "0",
+            "description": "Use this template by default for this device type",
+            "fieldname": "is_default",
+            "fieldtype": "Check",
+            "label": "Is Default"
+        },
+        {
+            "fieldname": "section_break_2",
+            "fieldtype": "Section Break"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Text Editor",
+            "label": "Description"
+        },
+        {
+            "fieldname": "section_break_3",
+            "fieldtype": "Section Break",
+            "label": "Checklist Items"
+        },
+        {
+            "fieldname": "checklist_items",
+            "fieldtype": "Table",
+            "label": "Checklist Items",
+            "options": "Inspection Checklist Item",
+            "reqd": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-01-27 22:40:00.000000",
+    "modified_by": "Administrator",
+    "module": "RepairBox",
+    "name": "Inspection Checklist Template",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

@@ -1,0 +1,92 @@
+[
+    {
+        "doctype": "Repair Status",
+        "status_name": "Pending Review",
+        "color": "#FFA500",
+        "is_default": 1,
+        "notify_customer": 1,
+        "sort_order": 1,
+        "description": "Device received and awaiting initial review"
+    },
+    {
+        "doctype": "Repair Status",
+        "status_name": "In Progress",
+        "color": "#3498DB",
+        "is_default": 0,
+        "notify_customer": 1,
+        "sort_order": 2,
+        "description": "Repair work is currently in progress"
+    },
+    {
+        "doctype": "Repair Status",
+        "status_name": "Awaiting Parts",
+        "color": "#F39C12",
+        "is_default": 0,
+        "notify_customer": 1,
+        "sort_order": 3,
+        "description": "Waiting for replacement parts to arrive"
+    },
+    {
+        "doctype": "Repair Status",
+        "status_name": "Awaiting Customer Approval",
+        "color": "#9B59B6",
+        "is_default": 0,
+        "notify_customer": 1,
+        "sort_order": 4,
+        "description": "Waiting for customer to approve repair quote"
+    },
+    {
+        "doctype": "Repair Status",
+        "status_name": "Testing",
+        "color": "#1ABC9C",
+        "is_default": 0,
+        "notify_customer": 0,
+        "sort_order": 5,
+        "description": "Device is being tested after repair"
+    },
+    {
+        "doctype": "Repair Status",
+        "status_name": "Completed",
+        "color": "#27AE60",
+        "is_default": 0,
+        "notify_customer": 1,
+        "sort_order": 6,
+        "description": "Repair completed successfully"
+    },
+    {
+        "doctype": "Repair Status",
+        "status_name": "Ready for Pickup",
+        "color": "#2ECC71",
+        "is_default": 0,
+        "notify_customer": 1,
+        "sort_order": 7,
+        "description": "Device is ready to be picked up by customer"
+    },
+    {
+        "doctype": "Repair Status",
+        "status_name": "Delivered",
+        "color": "#16A085",
+        "is_default": 0,
+        "notify_customer": 1,
+        "sort_order": 8,
+        "description": "Device has been delivered to customer"
+    },
+    {
+        "doctype": "Repair Status",
+        "status_name": "Cancelled",
+        "color": "#E74C3C",
+        "is_default": 0,
+        "notify_customer": 1,
+        "sort_order": 9,
+        "description": "Repair order has been cancelled"
+    },
+    {
+        "doctype": "Repair Status",
+        "status_name": "On Hold",
+        "color": "#95A5A6",
+        "is_default": 0,
+        "notify_customer": 1,
+        "sort_order": 10,
+        "description": "Repair is temporarily on hold"
+    }
+]

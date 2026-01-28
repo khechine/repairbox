@@ -1,0 +1,308 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "format:RO-{YYYY}-{#####}",
+    "creation": "2026-01-27 22:30:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "customer_section",
+        "customer",
+        "customer_name",
+        "column_break_2",
+        "contact_number",
+        "email",
+        "device_section",
+        "brand",
+        "device",
+        "device_model",
+        "column_break_5",
+        "serial_number",
+        "device_password",
+        "inspection_section",
+        "device_inspection",
+        "repair_details_section",
+        "defects",
+        "additional_notes",
+        "column_break_8",
+        "technician_notes",
+        "status_section",
+        "status",
+        "priority",
+        "column_break_11",
+        "assigned_to",
+        "pricing_section",
+        "total_service_amount",
+        "priority_charge",
+        "tax_amount",
+        "grand_total",
+        "column_break_15",
+        "paid_amount",
+        "payment_status",
+        "tracking_section",
+        "tracking_id",
+        "booking_date",
+        "column_break_18",
+        "expected_completion",
+        "actual_completion"
+    ],
+    "fields": [
+        {
+            "fieldname": "customer_section",
+            "fieldtype": "Section Break",
+            "label": "Customer Information"
+        },
+        {
+            "fieldname": "customer",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Customer",
+            "options": "Customer",
+            "reqd": 1
+        },
+        {
+            "fetch_from": "customer.customer_name",
+            "fieldname": "customer_name",
+            "fieldtype": "Data",
+            "label": "Customer Name",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "contact_number",
+            "fieldtype": "Data",
+            "label": "Contact Number"
+        },
+        {
+            "fieldname": "email",
+            "fieldtype": "Data",
+            "label": "Email",
+            "options": "Email"
+        },
+        {
+            "fieldname": "device_section",
+            "fieldtype": "Section Break",
+            "label": "Device Information"
+        },
+        {
+            "fieldname": "brand",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Brand",
+            "options": "Brand",
+            "reqd": 1
+        },
+        {
+            "fieldname": "device",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Device",
+            "options": "Device",
+            "reqd": 1
+        },
+        {
+            "fieldname": "device_model",
+            "fieldtype": "Data",
+            "label": "Device Model"
+        },
+        {
+            "fieldname": "column_break_5",
+            "fieldtype": "Column Break"
+        },
+        {
+            "description": "IMEI or Serial Number",
+            "fieldname": "serial_number",
+            "fieldtype": "Data",
+            "label": "Serial Number"
+        },
+        {
+            "fieldname": "device_password",
+            "fieldtype": "Password",
+            "label": "Device Password/PIN"
+        },
+        {
+            "fieldname": "inspection_section",
+            "fieldtype": "Section Break",
+            "label": "Device Inspection Checklist"
+        },
+        {
+            "description": "Checklist to test primary defects when receiving device",
+            "fieldname": "device_inspection",
+            "fieldtype": "Table",
+            "label": "Inspection Items",
+            "options": "Device Inspection Item"
+        },
+        {
+            "fieldname": "repair_details_section",
+            "fieldtype": "Section Break",
+            "label": "Repair Details"
+        },
+        {
+            "fieldname": "defects",
+            "fieldtype": "Table",
+            "label": "Defects/Services",
+            "options": "Repair Order Defect",
+            "reqd": 1
+        },
+        {
+            "fieldname": "additional_notes",
+            "fieldtype": "Text Editor",
+            "label": "Additional Notes (Customer)"
+        },
+        {
+            "fieldname": "column_break_8",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "technician_notes",
+            "fieldtype": "Text Editor",
+            "label": "Technician Notes (Internal)"
+        },
+        {
+            "fieldname": "status_section",
+            "fieldtype": "Section Break",
+            "label": "Status & Assignment"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Repair Status",
+            "reqd": 1
+        },
+        {
+            "fieldname": "priority",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Priority",
+            "options": "Repair Priority",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_11",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "assigned_to",
+            "fieldtype": "Link",
+            "label": "Assigned Technician",
+            "options": "User"
+        },
+        {
+            "fieldname": "pricing_section",
+            "fieldtype": "Section Break",
+            "label": "Pricing"
+        },
+        {
+            "fieldname": "total_service_amount",
+            "fieldtype": "Currency",
+            "label": "Total Service Amount",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "priority.extra_charge",
+            "fieldname": "priority_charge",
+            "fieldtype": "Currency",
+            "label": "Priority Charge",
+            "read_only": 1
+        },
+        {
+            "fieldname": "tax_amount",
+            "fieldtype": "Currency",
+            "label": "Tax Amount",
+            "read_only": 1
+        },
+        {
+            "fieldname": "grand_total",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "Grand Total",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_15",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "paid_amount",
+            "fieldtype": "Currency",
+            "label": "Paid Amount"
+        },
+        {
+            "default": "Unpaid",
+            "fieldname": "payment_status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Payment Status",
+            "options": "Unpaid\nPartially Paid\nPaid"
+        },
+        {
+            "fieldname": "tracking_section",
+            "fieldtype": "Section Break",
+            "label": "Tracking"
+        },
+        {
+            "fieldname": "tracking_id",
+            "fieldtype": "Data",
+            "label": "Tracking ID",
+            "read_only": 1,
+            "unique": 1
+        },
+        {
+            "default": "Now",
+            "fieldname": "booking_date",
+            "fieldtype": "Datetime",
+            "label": "Booking Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_18",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "expected_completion",
+            "fieldtype": "Datetime",
+            "label": "Expected Completion"
+        },
+        {
+            "fieldname": "actual_completion",
+            "fieldtype": "Datetime",
+            "label": "Actual Completion"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-01-27 22:30:00.000000",
+    "modified_by": "Administrator",
+    "module": "RepairBox",
+    "name": "Repair Order",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "customer_name",
+    "track_changes": 1
+}

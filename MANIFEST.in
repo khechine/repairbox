@@ -1,0 +1,19 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include repairbox *.css
+recursive-include repairbox *.csv
+recursive-include repairbox *.html
+recursive-include repairbox *.ico
+recursive-include repairbox *.js
+recursive-include repairbox *.json
+recursive-include repairbox *.md
+recursive-include repairbox *.png
+recursive-include repairbox *.py
+recursive-include repairbox *.svg
+recursive-include repairbox *.txt
+recursive-include repairbox *.xml
+recursive-exclude repairbox *.pyc
