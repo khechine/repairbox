@@ -1,0 +1,23 @@
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "repairbox"
+authors = [
+    { name = "Me", email = "me@example.com" }
+]
+description = "RepairBox - Repair Management System for ERPNext"
+requires-python = ">=3.10"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = [
+    "frappe",
+    "pypika @ git+https://github.com/frappe/pypika@2c50e6142b2d61d2d243e466fdd5dc03b3d918f2"
+]
+
+[project.urls]
+Home = "https://github.com/khechine/repairbox"
+
+[tool.bench]
+dev-dependencies = []
