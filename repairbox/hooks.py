@@ -7,6 +7,10 @@ app_description = "RepairBox"
 app_email = "me@example.com"
 app_license = "mit"
 
+# Home Page
+# ---------
+home_page = "/app/repair-box"
+
 # Fixtures
 # --------
 # Fixtures will be synced to the database when the app is installed
