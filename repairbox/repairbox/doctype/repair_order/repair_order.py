@@ -127,13 +127,18 @@ class RepairOrder(Document):
 		message = self.get_status_email_message()
 		
 		# Send email
-		frappe.sendmail(
-			recipients=[self.email],
-			subject=subject,
-			message=message,
-			reference_doctype=self.doctype,
-			reference_name=self.name
-		)
+		try:
+			frappe.sendmail(
+				recipients=[self.email],
+				subject=subject,
+				message=message,
+				reference_doctype=self.doctype,
+				reference_name=self.name
+			)
+		except frappe.OutgoingEmailError:
+			frappe.log_error(frappe.get_traceback(), _("Email setup required for Repair Order notifications"))
+			# Don't throw the error, just log and continue
+			pass
 	
 	def get_status_email_message(self):
 		"""Get email message for status change"""
