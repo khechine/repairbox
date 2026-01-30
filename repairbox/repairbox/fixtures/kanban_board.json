@@ -1,0 +1,50 @@
+[
+    {
+        "columns": [
+            {
+                "column_name": "Pending Review",
+                "indicator": "Orange",
+                "order": 1,
+                "status": "Active"
+            },
+            {
+                "column_name": "In Progress",
+                "indicator": "Blue",
+                "order": 2,
+                "status": "Active"
+            },
+            {
+                "column_name": "Awaiting Parts",
+                "indicator": "Yellow",
+                "order": 3,
+                "status": "Active"
+            },
+            {
+                "column_name": "Testing",
+                "indicator": "Cyan",
+                "order": 4,
+                "status": "Active"
+            },
+            {
+                "column_name": "Ready for Pickup",
+                "indicator": "Green",
+                "order": 5,
+                "status": "Active"
+            },
+            {
+                "column_name": "Completed",
+                "indicator": "Green",
+                "order": 6,
+                "status": "Active"
+            }
+        ],
+        "doctype": "Kanban Board",
+        "field_name": "status",
+        "filters_json": "[]",
+        "kanban_board_name": "Repair Status",
+        "module": "RepairBox",
+        "private": 0,
+        "reference_doctype": "Repair Order",
+        "show_labels": 1
+    }
+]
