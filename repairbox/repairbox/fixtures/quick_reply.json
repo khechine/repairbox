@@ -2,6 +2,7 @@
     {
         "doctype": "Quick Reply",
         "title": "Device Received",
+        "name": "Device Received",
         "category": "SMS",
         "is_active": 1,
         "message": "Hello {customer_name}, we have received your {device} for repair. Your tracking ID is {tracking_id}. We will update you on the progress soon."
@@ -9,6 +10,7 @@
     {
         "doctype": "Quick Reply",
         "title": "Repair Started",
+        "name": "Repair Started",
         "category": "SMS",
         "is_active": 1,
         "message": "Hi {customer_name}, repair work on your {device} (ID: {tracking_id}) has started. Current status: {status}."
@@ -16,6 +18,7 @@
     {
         "doctype": "Quick Reply",
         "title": "Repair Completed",
+        "name": "Repair Completed",
         "category": "SMS",
         "is_active": 1,
         "message": "Good news {customer_name}! Your {device} repair is complete. Total: ${grand_total}. Please visit us to collect your device. Tracking ID: {tracking_id}"
@@ -23,6 +26,7 @@
     {
         "doctype": "Quick Reply",
         "title": "Ready for Pickup",
+        "name": "Ready for Pickup",
         "category": "Email",
         "is_active": 1,
         "message": "Dear {customer_name},\n\nYour {device} is ready for pickup!\n\nTracking ID: {tracking_id}\nTotal Amount: ${grand_total}\nPaid: ${paid_amount}\nBalance: ${balance}\n\nPlease bring your receipt when collecting the device.\n\nThank you for choosing our service!"
@@ -30,6 +34,7 @@
     {
         "doctype": "Quick Reply",
         "title": "Awaiting Approval",
+        "name": "Awaiting Approval",
         "category": "SMS",
         "is_active": 1,
         "message": "Hi {customer_name}, we've diagnosed your {device}. Estimated repair cost: ${grand_total}. Please reply to approve or call us to discuss. ID: {tracking_id}"
@@ -37,6 +42,7 @@
     {
         "doctype": "Quick Reply",
         "title": "Parts Ordered",
+        "name": "Parts Ordered",
         "category": "SMS",
         "is_active": 1,
         "message": "Hello {customer_name}, replacement parts for your {device} have been ordered. Expected arrival: 2-3 business days. ID: {tracking_id}"

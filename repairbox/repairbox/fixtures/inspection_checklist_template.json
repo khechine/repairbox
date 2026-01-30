@@ -2,6 +2,7 @@
     {
         "doctype": "Inspection Checklist Template",
         "template_name": "Smartphone Standard Inspection",
+        "name": "Smartphone Standard Inspection",
         "device_type": "Smartphone",
         "is_active": 1,
         "is_default": 1,
@@ -152,6 +153,7 @@
     {
         "doctype": "Inspection Checklist Template",
         "template_name": "Laptop Standard Inspection",
+        "name": "Laptop Standard Inspection",
         "device_type": "Laptop",
         "is_active": 1,
         "is_default": 1,
@@ -246,6 +248,7 @@
     {
         "doctype": "Inspection Checklist Template",
         "template_name": "Tablet Standard Inspection",
+        "name": "Tablet Standard Inspection",
         "device_type": "Tablet",
         "is_active": 1,
         "is_default": 1,

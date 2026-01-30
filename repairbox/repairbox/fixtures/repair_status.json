@@ -2,6 +2,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "Pending Review",
+        "name": "Pending Review",
         "color": "#FFA500",
         "is_default": 1,
         "notify_customer": 1,
@@ -11,6 +12,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "In Progress",
+        "name": "In Progress",
         "color": "#3498DB",
         "is_default": 0,
         "notify_customer": 1,
@@ -20,6 +22,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "Awaiting Parts",
+        "name": "Awaiting Parts",
         "color": "#F39C12",
         "is_default": 0,
         "notify_customer": 1,
@@ -29,6 +32,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "Awaiting Customer Approval",
+        "name": "Awaiting Customer Approval",
         "color": "#9B59B6",
         "is_default": 0,
         "notify_customer": 1,
@@ -38,6 +42,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "Testing",
+        "name": "Testing",
         "color": "#1ABC9C",
         "is_default": 0,
         "notify_customer": 0,
@@ -47,6 +52,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "Completed",
+        "name": "Completed",
         "color": "#27AE60",
         "is_default": 0,
         "notify_customer": 1,
@@ -56,6 +62,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "Ready for Pickup",
+        "name": "Ready for Pickup",
         "color": "#2ECC71",
         "is_default": 0,
         "notify_customer": 1,
@@ -65,6 +72,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "Delivered",
+        "name": "Delivered",
         "color": "#16A085",
         "is_default": 0,
         "notify_customer": 1,
@@ -74,6 +82,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "Cancelled",
+        "name": "Cancelled",
         "color": "#E74C3C",
         "is_default": 0,
         "notify_customer": 1,
@@ -83,6 +92,7 @@
     {
         "doctype": "Repair Status",
         "status_name": "On Hold",
+        "name": "On Hold",
         "color": "#95A5A6",
         "is_default": 0,
         "notify_customer": 1,

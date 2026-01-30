@@ -42,6 +42,7 @@
         "field_name": "status",
         "filters_json": "[]",
         "kanban_board_name": "Repair Status",
+        "name": "Repair Status",
         "module": "RepairBox",
         "private": 0,
         "reference_doctype": "Repair Order",

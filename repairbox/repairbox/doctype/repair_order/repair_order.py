@@ -3,106 +3,219 @@
 
 import frappe
 from frappe.model.document import Document
-from frappe.utils import nowdate, add_days, random_string
+from frappe.utils import flt, now_datetime, add_to_date
+import hashlib
+import random
+import string
 
 
 class RepairOrder(Document):
 	def before_insert(self):
-		"""Generate tracking ID before inserting"""
-		if not self.tracking_id:
-			self.tracking_id = random_string(10).upper()
+		"""Generate tracking ID before insert"""
+		self.tracking_id = self.generate_tracking_id()
 	
 	def validate(self):
-		"""Validate and calculate totals"""
+		"""Validation logic"""
+		# Calculate totals
 		self.calculate_totals()
-		self.update_payment_status()
-		self.load_inspection_checklist()
 		
-		# Set default status and priority if not set
-		if not self.status:
-			default_status = frappe.db.get_value("Repair Status", {"is_default": 1}, "name")
-			if default_status:
-				self.status = default_status
+		# Validate status transitions
+		self.validate_status_change()
 		
-		if not self.priority:
-			default_priority = frappe.db.get_value("Repair Priority", {"is_default": 1}, "name")
-			if default_priority:
-				self.priority = default_priority
+		# Auto-set expected completion if not set
+		if not self.expected_completion and self.defects:
+			self.set_expected_completion()
 	
-	def load_inspection_checklist(self):
-		"""Load inspection checklist from template if not already loaded"""
-		# Only load if device is set and inspection list is empty
-		if not self.device or len(self.device_inspection) > 0:
-			return
-		
-		# Get device type from device
-		device_doc = frappe.get_doc("Device", self.device)
-		if not device_doc:
-			return
-		
-		# Try to find a default template for this device type
-		# For now, we'll use a generic template or create items manually
-		# You can extend this to link devices to device types
-		
-		# Get default smartphone template as fallback
-		template = frappe.db.get_value(
-			"Inspection Checklist Template",
-			{"is_default": 1, "is_active": 1},
-			"name"
-		)
-		
-		if not template:
-			# Get any active template
-			template = frappe.db.get_value(
-				"Inspection Checklist Template",
-				{"is_active": 1},
-				"name"
-			)
-		
-		if template:
-			template_doc = frappe.get_doc("Inspection Checklist Template", template)
-			
-			# Clear existing items
-			self.device_inspection = []
-			
-			# Add items from template
-			for item in template_doc.checklist_items:
-				self.append("device_inspection", {
-					"item_name": item.item_name,
-					"category": item.category,
-					"is_mandatory": item.is_mandatory,
-					"status": "Not Tested"
-				})
+	def on_update(self):
+		"""After save logic"""
+		# Send notifications if status changed
+		if self.has_value_changed('status'):
+			self.notify_status_change()
 	
 	def calculate_totals(self):
-		"""Calculate total service amount and grand total"""
-		# Sum all defect prices
+		"""Calculate pricing totals"""
 		total_service = 0
+		
+		# Sum all defects
 		for defect in self.defects:
-			if defect.selling_price:
-				total_service += defect.selling_price
+			# FIX: Use 'selling_price' instead of 'amount'
+			total_service += flt(defect.selling_price)
 		
 		self.total_service_amount = total_service
 		
-		# Get priority charge
-		if self.priority:
-			priority_charge = frappe.db.get_value("Repair Priority", self.priority, "extra_charge") or 0
-			self.priority_charge = priority_charge
-		else:
-			self.priority_charge = 0
+		# Add priority charge
+		priority_charge = flt(self.priority_charge)
 		
-		# Calculate tax (placeholder - can be configured later)
-		# For now, assume 0% tax
-		self.tax_amount = 0
+		# Calculate tax (19% TVA)
+		tax_rate = 0.19
+		self.tax_amount = (total_service + priority_charge) * tax_rate
 		
-		# Calculate grand total
-		self.grand_total = self.total_service_amount + self.priority_charge + self.tax_amount
+		# Grand total
+		self.grand_total = total_service + priority_charge + self.tax_amount
 	
-	def update_payment_status(self):
-		"""Update payment status based on paid amount"""
-		if not self.paid_amount or self.paid_amount == 0:
-			self.payment_status = "Unpaid"
-		elif self.paid_amount >= self.grand_total:
-			self.payment_status = "Paid"
-		else:
-			self.payment_status = "Partially Paid"
+	def set_expected_completion(self):
+		"""Auto-calculate expected completion based on defects"""
+		total_minutes = 0
+		
+		for defect_row in self.defects:
+			if defect_row.defect:
+				try:
+					defect_doc = frappe.get_doc('Defect', defect_row.defect)
+					if defect_doc.estimated_time:
+						total_minutes += flt(defect_doc.estimated_time)
+				except frappe.DoesNotExistError:
+					continue
+		
+		if total_minutes > 0:
+			# Add buffer (20%)
+			total_minutes = total_minutes * 1.2
+			
+			# Set expected completion
+			self.expected_completion = add_to_date(
+				self.booking_date or now_datetime(),
+				hours=total_minutes / 60
+			)
+	
+	def validate_status_change(self):
+		"""Validate status transitions"""
+		if not self.has_value_changed('status'):
+			return
+		
+		old_status = self.get_doc_before_save().status if self.get_doc_before_save() else None
+		new_status = self.status
+		
+		# Cannot mark as Delivered if payment not complete (unless Manager)
+		if new_status == 'Delivered' and self.payment_status != 'Paid':
+			if 'System Manager' not in frappe.get_roles():
+				frappe.throw(
+					frappe._('Cannot mark as Delivered without full payment. Contact Manager for override.'),
+					title='Payment Required'
+				)
+		
+		# Cannot mark as Completed without defects/services
+		if new_status == 'Completed' and not self.defects:
+			frappe.throw(
+				frappe._('Cannot complete repair without defects/services recorded.'),
+				title='Missing Information'
+			)
+		
+		# Cannot go back to Pending Review from other statuses
+		if old_status and old_status != 'Pending Review' and new_status == 'Pending Review':
+			frappe.throw(
+				frappe._('Cannot return to Pending Review status'),
+				title='Invalid Status Change'
+			)
+	
+	def notify_status_change(self):
+		"""Send notification to customer on status change"""
+		# Check if this status should notify customer
+		if not self.status:
+			return
+
+		try:
+			status_doc = frappe.get_doc('Repair Status', self.status)
+			if not status_doc.notify_customer:
+				return
+		except frappe.DoesNotExistError:
+			return
+		
+		if not self.email:
+			return
+		
+		# Get email template
+		subject = f"Repair Order {self.name} - Status Update"
+		message = self.get_status_email_message()
+		
+		# Send email
+		frappe.sendmail(
+			recipients=[self.email],
+			subject=subject,
+			message=message,
+			reference_doctype=self.doctype,
+			reference_name=self.name
+		)
+	
+	def get_status_email_message(self):
+		"""Get email message for status change"""
+		messages = {
+			'In Progress': f"Your {self.device} repair is now in progress. Our technician is working on it.",
+			'Testing': f"Your {self.device} repair is complete and undergoing quality testing.",
+			'Completed': f"Good news! Your {self.device} repair is complete.",
+			'Ready for Pickup': f"Your {self.device} is ready for pickup! Tracking ID: {self.tracking_id}",
+			'Delivered': f"Thank you for choosing us! Your {self.device} has been delivered.",
+			'Awaiting Customer Approval': f"Your repair requires approval. Total cost: {frappe.utils.fmt_money(self.grand_total)}. Please confirm to proceed.",
+			'On Hold': f"Your repair order has been put on hold. We will contact you shortly.",
+			'Cancelled': f"Your repair order has been cancelled."
+		}
+		
+		base_message = messages.get(self.status, f"Your repair order status has been updated to: {self.status}")
+		
+		return f"""
+		<p>Dear {self.customer_name},</p>
+		<p>{base_message}</p>
+		<p><strong>Order Details:</strong></p>
+		<ul>
+			<li>Order ID: {self.name}</li>
+			<li>Device: {self.device}</li>
+			<li>Status: {self.status}</li>
+			{f'<li>Tracking ID: {self.tracking_id}</li>' if self.tracking_id else ''}
+		</ul>
+		<p>If you have any questions, please contact us.</p>
+		<p>Best regards,<br>RepairBox Team</p>
+		"""
+	
+	def generate_tracking_id(self):
+		"""Generate unique tracking ID"""
+		# Format: RB-XXXXX (RB = RepairBox, XXXXX = random alphanumeric)
+		random_part = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+		return f"RB-{random_part}"
+
+
+@frappe.whitelist()
+def get_my_repairs():
+	"""Get repairs assigned to current user (for Dashboard)"""
+	user = frappe.session.user
+	
+	repairs = frappe.get_all(
+		'Repair Order',
+		filters={
+			'assigned_to': user,
+			'status': ['not in', ['Delivered', 'Cancelled']]
+		},
+		fields=['name', 'customer_name', 'device', 'status', 'priority', 'expected_completion'],
+		order_by='expected_completion asc'
+	)
+	
+	return repairs
+
+
+@frappe.whitelist()
+def get_overdue_repairs():
+	"""Get overdue repairs"""
+	repairs = frappe.get_all(
+		'Repair Order',
+		filters={
+			'expected_completion': ['<', now_datetime()],
+			'status': ['not in', ['Delivered', 'Cancelled', 'Completed']]
+		},
+		fields=['name', 'customer_name', 'device', 'status', 'expected_completion', 'assigned_to'],
+		order_by='expected_completion asc'
+	)
+	
+	return repairs
+
+
+@frappe.whitelist()
+def quick_create_customer(customer_name, contact_number, email=None):
+	"""Quick create customer from Repair Order form"""
+	customer = frappe.get_doc({
+		'doctype': 'Customer',
+		'customer_name': customer_name,
+		'customer_type': 'Individual',
+		'mobile_no': contact_number,
+		'email_id': email
+	})
+	
+	customer.insert(ignore_permissions=True)
+	
+	return customer.name

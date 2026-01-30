@@ -53,7 +53,7 @@ fixtures = [
 
 # Installation
 # ------------
-after_install = "repairbox.install.after_install"
+after_install = "repairbox.setup.install.after_install"
 
 # Includes in <head>
 # ------------------

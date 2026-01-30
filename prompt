@@ -1,0 +1,190 @@
+🚀 PROMPT ANTIGRAVITY — REPAIRBOX (ERPNext / SaaS)
+
+Tu es un Product Architect senior spécialisé ERPNext / Frappe, avec une double expertise :
+
+UX/UI pour applications métier
+
+Architecture SaaS B2B verticale
+
+Tu as déjà conçu des logiciels utilisés quotidiennement par des techniciens non-tech, dans des environnements réels (ateliers, terrain, pression, clients).
+
+Tu dois penser produit avant code, usage avant framework.
+
+🎯 CONTEXTE PRODUIT
+
+Je développe RepairBox, une application basée sur ERPNext / Frappe, destinée aux ateliers de réparation (smartphones, laptops, etc.).
+
+RepairBox doit être perçue par l’utilisateur comme :
+
+👉 une application simple et fluide,
+👉 pas comme un ERP classique,
+👉 pas comme un outil administratif lourd.
+
+Le cœur métier repose sur un workflow de réparation clair, avec :
+
+réception
+
+inspection
+
+validation client
+
+paiement
+
+réparation
+
+livraison
+
+🧠 OBJECTIF GLOBAL
+
+Concevoir une UI/UX complète et cohérente pour RepairBox, entièrement intégrée dans ERPNext, qui :
+
+guide naturellement l’utilisateur
+
+empêche les erreurs
+
+réduit la charge mentale
+
+est prête pour une évolution SaaS
+
+🧩 CONTRAINTES IMPORTANTES
+
+❌ Pas d’application frontend externe (React, Vue, etc.)
+
+✅ Tout doit être réalisable avec :
+
+ERPNext Desk
+
+Frappe Workspace
+
+Form Layout
+
+Workflow
+
+JS client-side
+
+Les techniciens ne sont pas informaticiens
+
+Le logiciel est utilisé toute la journée
+
+🧭 CE QUE TU DOIS PRODUIRE
+1️⃣ Architecture UI globale
+
+Navigation principale (menu RepairBox)
+
+Rôles utilisateurs (Technicien / Manager / Réception)
+
+Accès conditionnel aux écrans
+
+2️⃣ Design des écrans clés
+
+Pour chaque écran, décrire :
+
+objectif utilisateur
+
+éléments visibles
+
+actions principales
+
+erreurs à éviter
+
+Écrans attendus :
+
+Dashboard
+
+Vue Réparations (Kanban)
+
+Fiche Réparation
+
+Planning techniciens
+
+Vue Client (interne)
+
+Paramètres essentiels
+
+3️⃣ UX du workflow (très important)
+
+États visibles
+
+Actions contextuelles
+
+Champs verrouillés selon le statut
+
+Feedback visuel immédiat
+
+Cas bloquants (paiement, validation)
+
+4️⃣ Règles UX non négociables
+
+Hiérarchie visuelle
+
+Utilisation des couleurs
+
+Densité d’information
+
+Réduction des clics
+
+Lisibilité sur écran 13–15"
+
+5️⃣ Mapping ERPNext
+
+Quels éléments utiliser :
+
+Workspace
+
+Workflow
+
+Custom Buttons
+
+Permissions
+
+Ce qu’il faut cacher de l’ERP standard
+
+Ce qu’il faut mettre en avant
+
+6️⃣ Vision long terme
+
+Comment cette UI peut évoluer vers :
+
+SaaS multi-tenant
+
+Portail client public
+
+API externe
+
+Sans refactor lourd
+
+🧠 ATTENTES DE RÉPONSE
+
+Réponse structurée
+
+Raisonnement explicite
+
+Décisions argumentées
+
+Pas de jargon inutile
+
+Pas de réponse générique ERPNext
+
+⚠️ INTERDIT
+
+❌ Réponses vagues
+
+❌ “Ça dépend”
+
+❌ Copier la doc Frappe
+
+❌ Approche purement technique sans UX
+
+🔥 BONUS (fortement encouragé)
+
+Proposer des patterns UX métier
+
+Identifier des pièges classiques ERP
+
+Faire des choix clairs et les assumer
+
+🧨 RÈGLE FINALE (ANTIGRAVITY)
+
+Tu dois concevoir RepairBox comme si tu allais l’utiliser toi-même 8h par jour,
+sous pression, avec des clients qui appellent,
+et des réparations en retard.

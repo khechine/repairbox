@@ -73,11 +73,13 @@
             "fieldtype": "Column Break"
         },
         {
+            "fetch_from": "customer.mobile_no",
             "fieldname": "contact_number",
             "fieldtype": "Data",
             "label": "Contact Number"
         },
         {
+            "fetch_from": "customer.email_id",
             "fieldname": "email",
             "fieldtype": "Data",
             "label": "Email",
