@@ -87,38 +87,32 @@ def create_defects():
     """Create common iPhone 12 defects/services."""
     defects_data = [
         {
-            "name": "Screen Replacement - iPhone 12",
-            "category": "Display",
+            "defect_title": "Screen Replacement",
             "selling_price": 280.00,
             "description": "OLED screen replacement with original quality display"
         },
         {
-            "name": "Battery Replacement - iPhone 12",
-            "category": "Battery",
+            "defect_title": "Battery Replacement",
             "selling_price": 120.00,
             "description": "High capacity battery replacement (2815 mAh)"
         },
         {
-            "name": "Back Glass Replacement - iPhone 12",
-            "category": "Housing",
+            "defect_title": "Back Glass Replacement",
             "selling_price": 150.00,
             "description": "Back glass panel replacement with adhesive"
         },
         {
-            "name": "Camera Lens Repair - iPhone 12",
-            "category": "Camera",
+            "defect_title": "Camera Lens Repair",
             "selling_price": 80.00,
             "description": "Rear camera lens glass replacement"
         },
         {
-            "name": "Charging Port Cleaning",
-            "category": "Charging",
+            "defect_title": "Charging Port Cleaning",
             "selling_price": 25.00,
             "description": "Deep cleaning of lightning port"
         },
         {
-            "name": "Water Damage Treatment",
-            "category": "Liquid Damage",
+            "defect_title": "Water Damage Treatment",
             "selling_price": 95.00,
             "description": "Complete water damage diagnostic and treatment"
         }
@@ -126,18 +120,21 @@ def create_defects():
     
     created_defects = []
     for defect_data in defects_data:
-        if frappe.db.exists("Defect", defect_data["name"]):
-            print(f"✓ Defect '{defect_data['name']}' already exists")
+        # Defect name is auto-generated as: device-defect_title
+        defect_name = f"iPhone 12-{defect_data['defect_title']}"
+        
+        if frappe.db.exists("Defect", defect_name):
+            print(f"✓ Defect '{defect_name}' already exists")
         else:
             defect = frappe.new_doc("Defect")
-            defect.defect_name = defect_data["name"]
-            defect.category = defect_data["category"]
+            defect.device = "iPhone 12"  # Mandatory field
+            defect.defect_title = defect_data["defect_title"]  # Mandatory field
             defect.selling_price = defect_data["selling_price"]
             defect.description = defect_data["description"]
             defect.insert(ignore_permissions=True)
-            print(f"✓ Created defect '{defect_data['name']}'")
+            print(f"✓ Created defect '{defect_name}'")
         
-        created_defects.append(defect_data["name"])
+        created_defects.append(defect_name)
     
     frappe.db.commit()
     return created_defects
@@ -172,11 +169,11 @@ def create_repair_order(customer, device, defects):
     
     # Add defects - iPhone 12 with multiple issues
     major_defects = [
-        "Screen Replacement - iPhone 12",
-        "Battery Replacement - iPhone 12",
-        "Back Glass Replacement - iPhone 12",
-        "Camera Lens Repair - iPhone 12",
-        "Water Damage Treatment"
+        "iPhone 12-Screen Replacement",
+        "iPhone 12-Battery Replacement",
+        "iPhone 12-Back Glass Replacement",
+        "iPhone 12-Camera Lens Repair",
+        "iPhone 12-Water Damage Treatment"
     ]
     
     for defect_name in major_defects:
