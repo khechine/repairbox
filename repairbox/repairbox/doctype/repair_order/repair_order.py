@@ -221,7 +221,63 @@ def quick_create_customer(customer_name, contact_number, email=None):
 		'mobile_no': contact_number,
 		'email_id': email
 	})
-	
+
 	customer.insert(ignore_permissions=True)
-	
+
 	return customer.name
+
+
+@frappe.whitelist()
+def get_inspection_checklist(device):
+	"""
+	Get inspection checklist items for a device.
+
+	Fallback strategy:
+	1. Template specific to the Device (template.device = selected_device)
+	2. Template by device type (template.device_type = device.device_type)
+	3. Empty list if no template found
+	"""
+	if not device:
+		return []
+
+	# Get device type from the device
+	device_type = frappe.db.get_value('Device', device, 'device_type')
+
+	# Strategy 1: Look for template specific to this device
+	template = frappe.db.get_value(
+		'Inspection Checklist Template',
+		{'device': device, 'is_active': 1},
+		'name',
+		order_by='is_default desc'
+	)
+
+	# Strategy 2: Fallback to device type template
+	if not template and device_type:
+		template = frappe.db.get_value(
+			'Inspection Checklist Template',
+			{'device_type': device_type, 'device': ['is', 'not set'], 'is_active': 1},
+			'name',
+			order_by='is_default desc'
+		)
+
+	if not template:
+		return []
+
+	# Get checklist items from the template
+	template_doc = frappe.get_doc('Inspection Checklist Template', template)
+	checklist_items = []
+
+	for item in template_doc.checklist_items:
+		checklist_items.append({
+			'item_name': item.item_name,
+			'category': item.category,
+			'is_mandatory': item.is_mandatory,
+			'status': '',
+			'is_defective': 0,
+			'notes': ''
+		})
+
+	return {
+		'template_name': template,
+		'items': checklist_items
+	}

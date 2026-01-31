@@ -9,6 +9,7 @@
     "field_order": [
         "template_name",
         "device_type",
+        "device",
         "column_break_1",
         "is_active",
         "is_default",
@@ -34,6 +35,15 @@
             "in_standard_filter": 1,
             "label": "Device Type",
             "options": "Smartphone\nTablet\nLaptop\nDesktop\nSmartwatch\nGaming Console\nOther"
+        },
+        {
+            "description": "Specific device model this checklist applies to (optional, takes priority over Device Type)",
+            "fieldname": "device",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Device",
+            "options": "Device"
         },
         {
             "fieldname": "column_break_1",

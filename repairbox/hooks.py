@@ -59,7 +59,7 @@ after_install = "repairbox.setup.install.after_install"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/repairbox/css/repairbox.css"
+app_include_css = "/assets/repairbox/css/repairbox.css"
 # app_include_js = "/assets/repairbox/js/repairbox.js"
 
 # include js, css files in header of web template

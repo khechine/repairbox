@@ -61,6 +61,11 @@ frappe.ui.form.on('Repair Order', {
             // Add status indicator
             add_status_indicator(frm);
         }
+
+        // Render inspection toggle buttons if checklist has items
+        if (frm.doc.device_inspection && frm.doc.device_inspection.length > 0) {
+            render_inspection_toggle_buttons(frm);
+        }
     },
 
     // ========================================
@@ -132,6 +137,9 @@ frappe.ui.form.on('Repair Order', {
                     }
                 };
             };
+
+            // Auto-load inspection checklist when device is selected
+            load_inspection_checklist(frm);
         }
     }
 });
@@ -564,4 +572,239 @@ Status: ${frm.doc.status}
 ${frm.doc.tracking_id ? 'Tracking ID: ' + frm.doc.tracking_id : ''}
 
 Best regards`;
+}
+
+// ========================================
+// INSPECTION CHECKLIST FUNCTIONS
+// ========================================
+
+function load_inspection_checklist(frm) {
+    if (!frm.doc.device) {
+        return;
+    }
+
+    // Only auto-load if checklist is empty
+    if (frm.doc.device_inspection && frm.doc.device_inspection.length > 0) {
+        frappe.confirm(
+            __('Device inspection checklist already has items. Do you want to replace them with the template for this device?'),
+            () => {
+                fetch_and_populate_checklist(frm);
+            }
+        );
+        return;
+    }
+
+    fetch_and_populate_checklist(frm);
+}
+
+function fetch_and_populate_checklist(frm) {
+    frappe.call({
+        method: 'repairbox.repairbox.doctype.repair_order.repair_order.get_inspection_checklist',
+        args: {
+            device: frm.doc.device
+        },
+        callback: function (r) {
+            if (r.message && r.message.items && r.message.items.length > 0) {
+                // Clear existing items
+                frm.clear_table('device_inspection');
+
+                // Add items from template
+                r.message.items.forEach(item => {
+                    let row = frm.add_child('device_inspection');
+                    row.item_name = item.item_name;
+                    row.category = item.category;
+                    row.is_mandatory = item.is_mandatory;
+                    row.status = '';
+                    row.is_defective = 0;
+                    row.notes = '';
+                });
+
+                frm.refresh_field('device_inspection');
+
+                // Render toggle buttons
+                render_inspection_toggle_buttons(frm);
+
+                frappe.show_alert({
+                    message: __('Inspection checklist loaded from template: {0}', [r.message.template_name]),
+                    indicator: 'green'
+                });
+            } else {
+                frappe.show_alert({
+                    message: __('No inspection checklist template found for this device'),
+                    indicator: 'orange'
+                });
+            }
+        }
+    });
+}
+
+function render_inspection_toggle_buttons(frm) {
+    // Wait for grid to render
+    setTimeout(() => {
+        const grid = frm.fields_dict.device_inspection.grid;
+
+        // Add quick action buttons above the grid
+        add_checklist_quick_actions(frm);
+
+        // Render toggle buttons for each row
+        if (grid && grid.grid_rows) {
+            grid.grid_rows.forEach((row, idx) => {
+                render_row_toggle_buttons(frm, row, idx);
+            });
+        }
+    }, 100);
+}
+
+function add_checklist_quick_actions(frm) {
+    const wrapper = frm.fields_dict.device_inspection.$wrapper;
+
+    // Remove existing quick actions
+    wrapper.find('.checklist-quick-actions').remove();
+
+    // Add quick action buttons
+    const quick_actions = $(`
+        <div class="checklist-quick-actions" style="margin-bottom: 10px; display: flex; gap: 10px; align-items: center;">
+            <span style="font-weight: 500; margin-right: 10px;">${__('Quick Actions')}:</span>
+            <button class="btn btn-xs btn-success checklist-all-pass">
+                <i class="fa fa-check"></i> ${__('All Pass')}
+            </button>
+            <button class="btn btn-xs btn-secondary checklist-all-na">
+                <i class="fa fa-minus"></i> ${__('All N/A')}
+            </button>
+            <button class="btn btn-xs btn-default checklist-reset">
+                <i class="fa fa-refresh"></i> ${__('Reset')}
+            </button>
+        </div>
+    `);
+
+    wrapper.find('.frappe-control').first().before(quick_actions);
+
+    // Bind events
+    quick_actions.find('.checklist-all-pass').on('click', () => {
+        set_all_checklist_status(frm, 'Pass');
+    });
+
+    quick_actions.find('.checklist-all-na').on('click', () => {
+        set_all_checklist_status(frm, 'N/A');
+    });
+
+    quick_actions.find('.checklist-reset').on('click', () => {
+        set_all_checklist_status(frm, '');
+    });
+}
+
+function set_all_checklist_status(frm, status) {
+    frm.doc.device_inspection.forEach(row => {
+        row.status = status;
+        row.is_defective = status === 'Fail' ? 1 : 0;
+    });
+    frm.refresh_field('device_inspection');
+    render_inspection_toggle_buttons(frm);
+}
+
+function render_row_toggle_buttons(frm, row, idx) {
+    if (!row || !row.doc) return;
+
+    const grid_row = row.grid_row || row;
+    const $row = $(grid_row);
+
+    // Find the status cell
+    const status_field = $row.find('[data-fieldname="status"]');
+    if (!status_field.length) return;
+
+    // Hide the default select field
+    status_field.find('select, .like-disabled-input').hide();
+
+    // Remove existing toggle buttons
+    status_field.find('.inspection-toggle-buttons').remove();
+
+    // Create toggle button group
+    const current_status = row.doc.status || '';
+    const is_mandatory = row.doc.is_mandatory;
+
+    const toggle_html = `
+        <div class="inspection-toggle-buttons" data-idx="${row.doc.idx}" style="display: flex; gap: 4px;">
+            <button type="button" class="btn btn-xs inspection-btn inspection-btn-pass ${current_status === 'Pass' ? 'active' : ''}"
+                    data-status="Pass" title="${__('Pass')}">
+                <i class="fa fa-check"></i>
+            </button>
+            <button type="button" class="btn btn-xs inspection-btn inspection-btn-fail ${current_status === 'Fail' ? 'active' : ''}"
+                    data-status="Fail" title="${__('Fail')}">
+                <i class="fa fa-times"></i>
+            </button>
+            <button type="button" class="btn btn-xs inspection-btn inspection-btn-na ${current_status === 'N/A' ? 'active' : ''}"
+                    data-status="N/A" title="${__('N/A')}">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    `;
+
+    status_field.append(toggle_html);
+
+    // Bind click events
+    status_field.find('.inspection-btn').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const new_status = $(this).data('status');
+        const row_idx = $(this).closest('.inspection-toggle-buttons').data('idx');
+
+        // Update the status
+        frappe.model.set_value(row.doc.doctype, row.doc.name, 'status', new_status);
+
+        // Auto-set is_defective based on status
+        if (new_status === 'Fail') {
+            frappe.model.set_value(row.doc.doctype, row.doc.name, 'is_defective', 1);
+        } else {
+            frappe.model.set_value(row.doc.doctype, row.doc.name, 'is_defective', 0);
+        }
+
+        // Update button states
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+    });
+
+    // Add mandatory indicator styling
+    if (is_mandatory) {
+        const item_name_field = $row.find('[data-fieldname="item_name"]');
+        if (item_name_field.length && !item_name_field.find('.mandatory-indicator').length) {
+            item_name_field.find('.like-disabled-input, .static-area').prepend(
+                '<span class="mandatory-indicator" style="color: var(--red-500); margin-right: 4px;">*</span>'
+            );
+        }
+    }
+
+    // Add category badge styling
+    const category_field = $row.find('[data-fieldname="category"]');
+    if (category_field.length) {
+        const category = row.doc.category;
+        if (category) {
+            const category_colors = {
+                'Display': '#3498db',
+                'Audio': '#9b59b6',
+                'Connectivity': '#1abc9c',
+                'Battery': '#f39c12',
+                'Camera': '#e74c3c',
+                'Buttons & Ports': '#34495e',
+                'Sensors': '#27ae60',
+                'Performance': '#2980b9',
+                'Physical Condition': '#8e44ad',
+                'Other': '#95a5a6'
+            };
+            const color = category_colors[category] || '#95a5a6';
+
+            category_field.find('.like-disabled-input, .static-area').each(function () {
+                if (!$(this).hasClass('category-styled')) {
+                    $(this).addClass('category-styled').css({
+                        'background-color': color,
+                        'color': 'white',
+                        'padding': '2px 8px',
+                        'border-radius': '4px',
+                        'font-size': '11px',
+                        'display': 'inline-block'
+                    });
+                }
+            });
+        }
+    }
 }

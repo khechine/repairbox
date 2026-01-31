@@ -11,6 +11,7 @@
         "device_name",
         "model",
         "column_break_1",
+        "device_type",
         "image",
         "is_active",
         "section_break_2",
@@ -43,6 +44,15 @@
         {
             "fieldname": "column_break_1",
             "fieldtype": "Column Break"
+        },
+        {
+            "description": "Type of device (e.g., Smartphone, Laptop, Tablet)",
+            "fieldname": "device_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Device Type",
+            "options": "Smartphone\nTablet\nLaptop\nDesktop\nSmartwatch\nGaming Console\nOther"
         },
         {
             "fieldname": "image",
