@@ -145,11 +145,11 @@
             "label": "Repair Details"
         },
         {
+            "description": "Add defects/services for this repair. Can be added later during diagnosis.",
             "fieldname": "defects",
             "fieldtype": "Table",
             "label": "Defects/Services",
-            "options": "Repair Order Defect",
-            "reqd": 1
+            "options": "Repair Order Defect"
         },
         {
             "fieldname": "additional_notes",
