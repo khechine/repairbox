@@ -253,12 +253,16 @@ def get_inspection_checklist(device):
 
 	# Strategy 2: Fallback to device type template
 	if not template and device_type:
-		template = frappe.db.get_value(
-			'Inspection Checklist Template',
-			{'device_type': device_type, 'device': ['is', 'not set'], 'is_active': 1},
-			'name',
-			order_by='is_default desc'
-		)
+		# Find template by device_type where device is not set (general template)
+		template = frappe.db.sql("""
+			SELECT name FROM `tabInspection Checklist Template`
+			WHERE device_type = %s
+			AND (device IS NULL OR device = '')
+			AND is_active = 1
+			ORDER BY is_default DESC
+			LIMIT 1
+		""", (device_type,), as_dict=True)
+		template = template[0].name if template else None
 
 	if not template:
 		return []
